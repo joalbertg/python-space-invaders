@@ -22,7 +22,7 @@ RED_LASER = pg.image.load(os.path.join('assets', 'pixel_laser_red.png'))
 YELLOW_LASER = pg.image.load(os.path.join('assets', 'pixel_laser_yellow.png'))
 
 # Background
-BG = pg.image.load(os.path.join('assets', 'background-black.png'))
+BG = pg.transform.scale(pg.image.load(os.path.join('assets', 'background-black.png')), (WIDTH, HEIGHT))
 
 def main():
     run = True
