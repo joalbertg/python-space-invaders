@@ -76,13 +76,13 @@ def main():
 
         keys = pg.key.get_pressed()
 
-        if keys[pg.K_a]: # left
+        if keys[pg.K_a] and ship.x - player_vel > 0 : # left
             ship.x -= player_vel
-        if keys[pg.K_d]: # right
+        if keys[pg.K_d] and ship.x + player_vel < WIDTH - 50: # right
             ship.x += player_vel
-        if keys[pg.K_w]: # up
+        if keys[pg.K_w] and ship.y - player_vel > 0: # up
             ship.y -= player_vel
-        if keys[pg.K_s]:
+        if keys[pg.K_s] and ship.y + player_vel < HEIGHT - 50: # down
             ship.y += player_vel
 
 main()
