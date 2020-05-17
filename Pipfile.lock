@@ -1,0 +1,25 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "655c625aa5fdc116e3731d96ffac43727eee03718f5db24d4a756f55175d35a5"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.8"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "pygame": {
+            "git": "https://github.com/pygame/pygame.git",
+            "ref": "16a8d3ea36ff09fc1c1d91c6492219a4bef944db"
+        }
+    },
+    "develop": {}
+}
