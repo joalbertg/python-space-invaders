@@ -46,6 +46,8 @@ def main():
     lives = 5
     main_font = pg.font.SysFont('comicsans', 50)
 
+    player_vel = 5
+
     ship = Ship(300, 650)
 
     clock = pg.time.Clock()
@@ -71,6 +73,17 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 run = False
+
+        keys = pg.key.get_pressed()
+
+        if keys[pg.K_a]: # left
+            ship.x -= player_vel
+        if keys[pg.K_d]: # right
+            ship.x += player_vel
+        if keys[pg.K_w]: # up
+            ship.y -= player_vel
+        if keys[pg.K_s]:
+            ship.y += player_vel
 
 main()
 
