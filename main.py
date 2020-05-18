@@ -86,7 +86,7 @@ def main():
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                run = False
+                quit()
 
         keys = pg.key.get_pressed()
 
@@ -118,5 +118,22 @@ def main():
 
         player.move_lasers(-laser_vel, enemies)
 
-main()
+def main_menu():
+    title_font = pg.font.SysFont('comicsans', 70)
+    run = True
+    while run:
+        WIN.blit(BG, (0, 0))
+        title_label = title_font.render('Press the mouse to begin...', 1, (255, 255, 255))
+        WIN.blit(title_label, (const.WIDTH/2 - title_label.get_width() / 2, 350))
+        pg.display.update()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                run = False
+
+            if event.type == pg.MOUSEBUTTONDOWN:
+                main()
+
+    pg.quit()
+
+main_menu()
 
