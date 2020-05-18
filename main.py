@@ -5,6 +5,7 @@ import random
 
 from player import Player
 from enemy import Enemy
+from helpers import collide
 import constants as const
 
 pg.font.init()
@@ -105,7 +106,14 @@ def main():
             enemy.move(enemy_vel)
             enemy.move_lasers(laser_vel, player)
 
-            if enemy.y + enemy.get_height() > const.HEIGHT:
+            if random.randrange(0, 2*FPS) == 1:
+                enemy.shoot()
+                enemy.move_lasers(laser_vel, player)
+
+            if collide(enemy, player):
+                player.health -= 10
+                enemies.remove(enemy)
+            elif enemy.y + enemy.get_height() > const.HEIGHT:
                 lives -= 1
                 enemies.remove(enemy)
 
