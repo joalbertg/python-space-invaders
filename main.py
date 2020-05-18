@@ -3,41 +3,18 @@ import os
 import time
 import random
 
+from player import Player
+from enemy import Enemy
+import constants as const
+
 pg.font.init()
 
 WIDTH, HEIGHT = 750, 750
 WIN = pg.display.set_mode((WIDTH, HEIGHT))
 pg.display.set_caption('Space Shooter')
 
-# Load images
-BLUE_SPACE_SHIP = pg.image.load(os.path.join('assets', 'pixel_ship_blue_small.png'))
-GREEN_SPACE_SHIP = pg.image.load(os.path.join('assets', 'pixel_ship_green_small.png'))
-RED_SPACE_SHIP = pg.image.load(os.path.join('assets', 'pixel_ship_red_small.png'))
-
-# Player ship
-YELLOW_SPACE_SHIP = pg.image.load(os.path.join('assets', 'pixel_ship_yellow.png'))
-
-# Lasers
-BLUE_LASER = pg.image.load(os.path.join('assets', 'pixel_laser_blue.png'))
-GREEN_LASER = pg.image.load(os.path.join('assets', 'pixel_laser_green.png'))
-RED_LASER = pg.image.load(os.path.join('assets', 'pixel_laser_red.png'))
-YELLOW_LASER = pg.image.load(os.path.join('assets', 'pixel_laser_yellow.png'))
-
 # Background
-BG = pg.transform.scale(pg.image.load(os.path.join('assets', 'background-black.png')), (WIDTH, HEIGHT))
-
-class Ship:
-    def __init__(self, x, y, health=100):
-        self.x = x
-        self.y = y
-        self.health = health
-        self.ship_img = None
-        self.laser_img = None
-        self.lasers = []
-        self.cool_down_counter = 0
-
-    def draw(self, window):
-        pg.draw.rect(window, (255, 0, 0), (self.x, self.y, 50, 50))
+BG = pg.transform.scale(const.BACKGROUND, (WIDTH, HEIGHT))
 
 def main():
     run = True
@@ -46,9 +23,13 @@ def main():
     lives = 5
     main_font = pg.font.SysFont('comicsans', 50)
 
+    enemies = []
+    wave_length = 5
+    enemy_vel = 1
+
     player_vel = 5
 
-    ship = Ship(300, 650)
+    player = Player(300, 650)
 
     clock = pg.time.Clock()
 
@@ -62,13 +43,27 @@ def main():
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
 
-        ship.draw(WIN)
+        for enemy in enemies:
+            enemy.draw(WIN)
+
+        player.draw(WIN)
 
         pg.display.update()
 
     while run:
         clock.tick(FPS)
-        redraw_windown()
+
+        if len(enemies) == 0:
+            level += 1
+            wave_length += 5
+
+            for i in range(wave_length):
+                enemy = Enemy(
+                            random.randrange(50, WIDTH-100),
+                            random.randrange(-1500, -100),
+                            random.choice(['blue', 'green', 'red']))
+                enemies.append(enemy)
+
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -76,14 +71,19 @@ def main():
 
         keys = pg.key.get_pressed()
 
-        if keys[pg.K_a] and ship.x - player_vel > 0 : # left
-            ship.x -= player_vel
-        if keys[pg.K_d] and ship.x + player_vel < WIDTH - 50: # right
-            ship.x += player_vel
-        if keys[pg.K_w] and ship.y - player_vel > 0: # up
-            ship.y -= player_vel
-        if keys[pg.K_s] and ship.y + player_vel < HEIGHT - 50: # down
-            ship.y += player_vel
+        if keys[pg.K_a] and player.x - player_vel > 0 : # left
+            player.x -= player_vel
+        if keys[pg.K_d] and player.x + player_vel < WIDTH - player.get_width(): # right
+            player.x += player_vel
+        if keys[pg.K_w] and player.y - player_vel > 0: # up
+            player.y -= player_vel
+        if keys[pg.K_s] and player.y + player_vel < HEIGHT - player.get_height(): # down
+            player.y += player_vel
+
+        for enemy in enemies:
+            enemy.move(enemy_vel)
+
+        redraw_windown()
 
 main()
 
