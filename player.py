@@ -11,3 +11,15 @@ class Player(Ship):
         self.mask = pg.mask.from_surface(self.ship_img)
         self.max_health = health
 
+    def move_lasers(self, vel, objs):
+        self.colldown()
+        for laser in self.lasers:
+            laser.move(vel)
+            if laser.off_screen(const.HEIGHT):
+                self.lasers.remove(laser)
+            else:
+                for obj in objs:
+                    if laser.collision(obj):
+                        objs.remove(obj)
+                        self.lasers.remove(laser)
+

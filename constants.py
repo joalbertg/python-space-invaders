@@ -1,6 +1,8 @@
 import pygame as pg
 import os
 
+WIDTH, HEIGHT = 750, 750
+
 # Load images
 BLUE_SPACE_SHIP = pg.image.load(os.path.join('assets', 'pixel_ship_blue_small.png'))
 GREEN_SPACE_SHIP = pg.image.load(os.path.join('assets', 'pixel_ship_green_small.png'))
