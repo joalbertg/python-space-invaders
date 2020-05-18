@@ -33,7 +33,7 @@ def main():
     player_vel = 5
     laser_vel = 5
 
-    player = Player(300, 650)
+    player = Player(300, 630)
 
     clock = pg.time.Clock()
 
@@ -92,11 +92,11 @@ def main():
 
         if keys[pg.K_a] and player.x - player_vel > 0 : # left
             player.x -= player_vel
-        if keys[pg.K_d] and player.x + player_vel < const.WIDTH - player.get_width(): # right
+        if keys[pg.K_d] and player.x + player_vel + player.get_width() < const.WIDTH: # right
             player.x += player_vel
         if keys[pg.K_w] and player.y - player_vel > 0: # up
             player.y -= player_vel
-        if keys[pg.K_s] and player.y + player_vel < const.HEIGHT - player.get_height(): # down
+        if keys[pg.K_s] and player.y + player_vel + player.get_height() + 15 < const.HEIGHT: # down
             player.y += player_vel
         if keys[pg.K_SPACE]:
             player.shoot()
@@ -108,7 +108,6 @@ def main():
 
             if random.randrange(0, 2*FPS) == 1:
                 enemy.shoot()
-                enemy.move_lasers(laser_vel, player)
 
             if collide(enemy, player):
                 player.health -= 10
