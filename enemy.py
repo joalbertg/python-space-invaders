@@ -4,12 +4,13 @@ from ship import Ship
 from laser import Laser
 import constants as const
 
+
 class Enemy(Ship):
     COLOR_MAP = {
-            "blue": (const.BLUE_SPACE_SHIP, const.BLUE_LASER),
-            "green": (const.GREEN_SPACE_SHIP, const.GREEN_LASER),
-            "red": (const.RED_SPACE_SHIP, const.RED_LASER)
-            }
+        "blue": (const.BLUE_SPACE_SHIP, const.BLUE_LASER),
+        "green": (const.GREEN_SPACE_SHIP, const.GREEN_LASER),
+        "red": (const.RED_SPACE_SHIP, const.RED_LASER)
+    }
 
     def __init__(self, x, y, color, health=100):
         super(Enemy, self).__init__(x, y, health)
@@ -24,4 +25,3 @@ class Enemy(Ship):
             laser = Laser(self.x-20, self.y, self.laser_img)
             self.lasers.append(laser)
             self.cool_down_counter = 1
-
