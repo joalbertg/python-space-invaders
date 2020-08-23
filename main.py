@@ -1,6 +1,4 @@
 import pygame as pg
-import os
-import time
 import random
 
 from player import Player
@@ -15,6 +13,7 @@ pg.display.set_caption('Space Shooter')
 
 # Background
 BG = pg.transform.scale(const.BACKGROUND, (const.WIDTH, const.HEIGHT))
+
 
 def main():
     run = True
@@ -41,8 +40,8 @@ def main():
         WIN.blit(BG, (0, 0))
 
         # draw text
-        lives_label = main_font.render(f"Lives: {lives}", 1, (255, 255, 255))
-        level_label = main_font.render(f"Level: {level}", 1, (255, 255, 255))
+        lives_label = main_font.render("Lives: %s" % lives, 1, (255, 255, 255))
+        level_label = main_font.render("Level: %s" % level, 1, (255, 255, 255))
 
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (const.WIDTH - level_label.get_width() - 10, 10))
@@ -53,7 +52,7 @@ def main():
         player.draw(WIN)
 
         if lost:
-            lost_label = lost_font.render(f"You Lost!!", 1, (255, 255, 255))
+            lost_label = lost_font.render("You Lost!!", 1, (255, 255, 255))
             WIN.blit(lost_label, (const.WIDTH/2 - lost_label.get_width()/2, 350))
 
         pg.display.update()
@@ -78,11 +77,10 @@ def main():
 
             for i in range(wave_length):
                 enemy = Enemy(
-                            random.randrange(50, const.WIDTH-100),
-                            random.randrange(-1500, -100),
-                            random.choice(['blue', 'green', 'red']))
+                    random.randrange(50, const.WIDTH-100),
+                    random.randrange(-1500, -100),
+                    random.choice(['blue', 'green', 'red']))
                 enemies.append(enemy)
-
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -90,13 +88,13 @@ def main():
 
         keys = pg.key.get_pressed()
 
-        if keys[pg.K_a] and player.x - player_vel > 0 : # left
+        if keys[pg.K_a] and player.x - player_vel > 0:  # left
             player.x -= player_vel
-        if keys[pg.K_d] and player.x + player_vel + player.get_width() < const.WIDTH: # right
+        if keys[pg.K_d] and player.x + player_vel + player.get_width() < const.WIDTH:  # right
             player.x += player_vel
-        if keys[pg.K_w] and player.y - player_vel > 0: # up
+        if keys[pg.K_w] and player.y - player_vel > 0:  # up
             player.y -= player_vel
-        if keys[pg.K_s] and player.y + player_vel + player.get_height() + 15 < const.HEIGHT: # down
+        if keys[pg.K_s] and player.y + player_vel + player.get_height() + 15 < const.HEIGHT:  # down
             player.y += player_vel
         if keys[pg.K_SPACE]:
             player.shoot()
@@ -118,6 +116,7 @@ def main():
 
         player.move_lasers(-laser_vel, enemies)
 
+
 def main_menu():
     title_font = pg.font.SysFont('comicsans', 70)
     run = True
@@ -135,5 +134,5 @@ def main_menu():
 
     pg.quit()
 
-main_menu()
 
+main_menu()

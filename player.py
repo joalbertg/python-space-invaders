@@ -3,6 +3,7 @@ import pygame as pg
 from ship import Ship
 import constants as const
 
+
 class Player(Ship):
     def __init__(self, x, y, health=100):
         super(Player, self).__init__(x, y, health)
@@ -29,10 +30,12 @@ class Player(Ship):
         self.healthbar(window)
 
     def healthbar(self, window):
-        pg.draw.rect(window,
-                (255, 0, 0),
-                (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width(), 10))
-        pg.draw.rect(window,
-                (0, 255, 0),
-                (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width() * (self.health/self.max_health), 10))
-
+        pg.draw.rect(
+            window,
+            (255, 0, 0),
+            (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width(), 10))
+        pg.draw.rect(
+            window,
+            (0, 255, 0),
+            (self.x, self.y + self.ship_img.get_height() + 10,
+             self.ship_img.get_width() * (self.health/self.max_health), 10))

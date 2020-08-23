@@ -1,7 +1,7 @@
 import pygame as pg
 
 from helpers import collide
-import constants as const
+
 
 class Laser:
     def __init__(self, x, y, img):
@@ -21,4 +21,3 @@ class Laser:
 
     def collision(self, obj):
         return collide(self, obj)
-

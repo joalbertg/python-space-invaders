@@ -1,7 +1,7 @@
 import constants as const
 
 from laser import Laser
-from helpers import collide
+
 
 class Ship:
     COOLDOWN = 30
@@ -47,4 +47,3 @@ class Ship:
 
     def get_height(self):
         return self.ship_img.get_height()
-

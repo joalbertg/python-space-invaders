@@ -18,4 +18,3 @@ RED_LASER = pg.image.load(os.path.join('assets', 'pixel_laser_red.png'))
 YELLOW_LASER = pg.image.load(os.path.join('assets', 'pixel_laser_yellow.png'))
 
 BACKGROUND = pg.image.load(os.path.join('assets', 'background-black.png'))
-
